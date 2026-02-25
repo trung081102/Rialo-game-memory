@@ -296,20 +296,24 @@
     </div>
 
     <script>
+        // Đã chuẩn hóa URL ảnh - tất cả đều dùng cùng đường dẫn gốc
         const cardImages = [
             "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddf8_Group%2014449.svg",
             "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddf5_Group%2014451.svg",
             "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddf4_Group%2014450.svg",
             "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddf6_Group%2014452.svg",
-            "https://cdn.prod.website-files.com/6883572e6ebf68cfe676ddfa_Group%2014453.svg",
+            "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddfa_Group%2014453.svg",
             "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddf7_Group%2014453-2.svg",
             "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddf8_Group%2014449.svg",
             "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddf5_Group%2014451.svg",
             "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddf4_Group%2014450.svg",
             "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddf6_Group%2014452.svg",
-            "https://cdn.prod.website-files.com/6883572e6ebf68cfe676ddfa_Group%2014453.svg",
-            "https://cdn.prod.website-files.com/6883572e6ebf68cfe676ddf7_Group%2014453-2.svg"
+            "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddfa_Group%2014453.svg",
+            "https://cdn.prod.website-files.com/6883572e6ebf68cfe676dd65/6883572e6ebf68cfe676ddf7_Group%2014453-2.svg"
         ];
+
+        // Lấy danh sách ảnh duy nhất (loại bỏ trùng lặp)
+        const uniqueImages = [...new Set(cardImages)];
 
         let cards = [];
         let flippedCards = [];
@@ -356,7 +360,7 @@
             card.innerHTML = `
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="${image}" alt="Card">
+                        <img src="${image}" alt="Card" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23667eea%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22white%22>🎮</text></svg>'">
                     </div>
                     <div class="card-back"></div>
                 </div>
@@ -451,7 +455,7 @@
             gameBoard.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
 
             // Get selected number of unique cards
-            const selectedImages = cardImages.slice(0, currentPairs);
+            const selectedImages = uniqueImages.slice(0, currentPairs);
             const cardPairs = [...selectedImages, ...selectedImages];
             shuffle(cardPairs);
 
